@@ -18,8 +18,8 @@ app.post('/signup', u, function (req, res) {
     console.log('Signed In');
 
     var response = {
-        name: req.body.signupmail,
-        password: req.body.signuppass
+        name: req.body.email,
+        password: req.body.password
     }
 
     MongoClient.connect('mongodb://localhost:27017/', function (err, db) {
