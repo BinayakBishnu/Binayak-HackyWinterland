@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign In</title>
+
+    <link type="text/css" rel="stylesheet" href="signin_login.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+
+        <form action="/signup" method="POST">
+            <div class="form-item-username">
+                <input type="text" name="firstName" id="firstName" placeholder="First Name">
+                <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+            </div>
+
+            <div class="form-item">
+                <input type="email" name="email" id="email" placeholder="Email">
+            </div>
+
+            <div class="form-item">
+                <!-- add a password format display -->
+                <span class="pwd-format">
+                    8-15 AlphaNumeric Characters
+                </span>
+                <input type="password" name="password" id="password" placeholder="Enter password">
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
+            </div>
+
+            <div class="accept-box">
+                <input type="checkbox" name="accept" id="accept">
+                <p>I accept the <a href="#">Terms & Conditions</a></p>
+            </div>
+
+            <div class="form-btns">
+                <button class="signup" type="submit" disabled>Sign Up</button>
+                <div class="options">
+                    Already have an account? <a href="https://www.google.com/" target="_blank">Login here</a>
+                </div>
+            </div>
+
+        </form>
+        <p>Copyright &copy; themlhschool.com</p>
+    </div>
+
+    <script>
+        const signup = document.querySelector(".signup");
+        const termCond = document.querySelector("#accept");
+        const password = document.querySelector("#password");
+        const confirmPassword = document.querySelector("#confirmPassword");
+        const pwd_format = document.querySelector(".pwd-format");
+        // lets define a password format
+        // The password should contain around 8-15 alhpanumeric character
+
+        const passwordPattern = /^[a-zA-Z0-9]{8,15}$/
+
+        password.addEventListener('focusin', () => {
+            pwd_format.style.display = 'block';
+
+            // now lets check the password entered by the user
+            password.addEventListener('keyup', () => {
+                if (passwordPattern.test(password.value)) {
+                    password.style.borderColor = 'green' // if password pattern matches the border of password input will ne green
+                    pwd_format.style.color = 'green'
+                } else {
+                    password.style.borderColor = 'red'
+                    pwd_format.style.color = 'red'
+                }
+            })
+        })
+
+        password.addEventListener('focusout', () => {
+            pwd_format.style.display = 'none';
+        })
+
+        confirmPassword.addEventListener('focusin', () => {
+            pwd_format.style.display = 'block';
+            confirmPassword.addEventListener('keyup', () => {
+                if (passwordPattern.test(confirmPassword.value) && password.value === confirmPassword.value) {
+                    confirmPassword.style.borderColor = 'green' // if password pattern matches the border of password input will be green
+                    pwd_format.style.color = 'green'
+                } else {
+                    confirmPassword.style.borderColor = 'red'
+                    pwd_format.style.color = 'red'
+                }
+            })
+        })
+
+        confirmPassword.addEventListener('focusout', () => {
+            pwd_format.style.display = 'none';
+        })
+
+        termCond.addEventListener('change', () => {
+            if (termCond.checked === true) {
+                signup.disabled = false;
+            } else if (termCond.checked === false) {
+                signup.disabled = true;
+            }
+        })
+    </script>
+</body>
+
+</html>
